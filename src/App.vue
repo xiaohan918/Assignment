@@ -1,4 +1,41 @@
 <script setup>
+import { ref, computed } from 'vue'
+
+const searchTerm = ref('')
+
+const recyclingItems = ref([
+  {
+    name: 'Plastic Bottle',
+    category: 'Plastic',
+    instruction: 'Rinse the bottle and place it in the recycling bin.',
+  },
+  {
+    name: 'Glass Jar',
+    category: 'Glass',
+    instruction: 'Remove the lid and place the clean jar in the recycling bin.',
+  },
+  {
+    name: 'Cardboard Box',
+    category: 'Paper',
+    instruction: 'Flatten the box before placing it in the recycling bin.',
+  },
+  {
+    name: 'Aluminium Can',
+    category: 'Metal',
+    instruction: 'Rinse the can and place it in the recycling bin.',
+  },
+  {
+    name: 'Newspaper',
+    category: 'Paper',
+    instruction: 'Keep it dry and place it in the paper recycling bin.',
+  },
+])
+
+const filteredItems = computed(() => {
+  return recyclingItems.value.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.value.toLowerCase()),
+  )
+})
 </script>
 
 <template>
