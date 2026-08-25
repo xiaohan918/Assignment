@@ -36,6 +36,33 @@ const filteredItems = computed(() => {
     item.name.toLowerCase().includes(searchTerm.value.toLowerCase()),
   )
 })
+
+const events = ref([
+  {
+    id: 1,
+    title: 'Community Clean-Up Day',
+    date: '5 September 2026',
+    location: 'Carlton Gardens',
+    description:
+      'Join local volunteers to collect litter and help keep our community clean.',
+  },
+  {
+    id: 2,
+    title: 'Recycling Workshop',
+    date: '12 September 2026',
+    location: 'Community Centre',
+    description:
+      'Learn how to correctly sort household waste and reduce recycling contamination.',
+  },
+  {
+    id: 3,
+    title: 'Clothing Swap Event',
+    date: '20 September 2026',
+    location: 'ReCircle Community Hub',
+    description:
+      'Bring unwanted clothes and exchange them for useful pre-loved items.',
+  },
+])
 </script>
 
 <template>
@@ -103,6 +130,41 @@ const filteredItems = computed(() => {
           <p v-if="filteredItems.length === 0" class="no-results">
             No recycling information found.
           </p>
+        </div>
+      </section>
+      <section id="events" class="events-section">
+        <div class="section-container">
+          <h2>Community Events</h2>
+
+          <p class="section-description">
+            Discover upcoming activities and connect with your local community.
+          </p>
+
+          <div class="events-grid">
+            <article
+              v-for="event in events"
+              :key="event.id"
+              class="event-card"
+            >
+              <h3>{{ event.title }}</h3>
+
+              <p>
+                <strong>Date:</strong>
+                {{ event.date }}
+              </p>
+
+              <p>
+                <strong>Location:</strong>
+                {{ event.location }}
+              </p>
+
+              <p>{{ event.description }}</p>
+
+              <a href="#involved" class="event-button">
+                Join Event
+              </a>
+            </article>
+          </div>
         </div>
       </section>
       <section class="features">
@@ -249,6 +311,54 @@ footer {
   color: white;
 }
 
+.events-section {
+  padding: 70px 8%;
+  background-color: white;
+}
+
+.events-section h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 35px;
+}
+
+.event-card {
+  padding: 28px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.event-card h3 {
+  color: #2e7d32;
+  margin-bottom: 18px;
+}
+
+.event-card p {
+  line-height: 1.6;
+}
+
+.event-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  background-color: #2e7d32;
+  color: white;
+  text-decoration: none;
+  border-radius: 7px;
+}
+
+.event-button:hover {
+  background-color: #256629;
+}
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -274,6 +384,10 @@ footer {
   }
 
   .recycling-grid {
+  grid-template-columns: 1fr;
+  }
+
+  .events-grid {
   grid-template-columns: 1fr;
   }
 }
