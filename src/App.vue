@@ -66,7 +66,45 @@ const filteredItems = computed(() => {
           </a>
         </div>
       </section>
+      <section id="recycling" class="recycling-section">
+        <div class="section-container">
+          <h2>Recycling Finder</h2>
 
+          <p class="section-description">
+            Search for an item to learn how it can be recycled correctly.
+          </p>
+
+          <input
+            v-model="searchTerm"
+            type="text"
+            class="search-input"
+            placeholder="Search for an item..."
+          />
+
+          <div class="recycling-grid">
+            <div
+              v-for="item in filteredItems"
+              :key="item.name"
+              class="recycling-card"
+            >
+              <h3>{{ item.name }}</h3>
+
+              <p>
+                <strong>Category:</strong>
+                {{ item.category }}
+              </p>
+
+              <p>
+                {{ item.instruction }}
+              </p>
+            </div>
+          </div>
+
+          <p v-if="filteredItems.length === 0" class="no-results">
+            No recycling information found.
+          </p>
+        </div>
+      </section>
       <section class="features">
         <h2>Explore ReCircle</h2>
 
@@ -234,5 +272,70 @@ footer {
   .feature-grid {
     grid-template-columns: 1fr;
   }
+
+  .recycling-grid {
+  grid-template-columns: 1fr;
+  }
+}
+.recycling-section {
+  padding: 70px 8%;
+  background-color: #f7faf7;
+}
+
+.section-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.recycling-section h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.section-description {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 35px;
+  padding: 14px 16px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.search-input:focus {
+  outline: 2px solid #2e7d32;
+  border-color: #2e7d32;
+}
+
+.recycling-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.recycling-card {
+  background-color: white;
+  padding: 25px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+}
+
+.recycling-card h3 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.no-results {
+  text-align: center;
+  margin-top: 25px;
+  font-weight: bold;
 }
 </style>
