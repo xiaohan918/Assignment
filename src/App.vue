@@ -63,6 +63,58 @@ const events = ref([
       'Bring unwanted clothes and exchange them for useful pre-loved items.',
   },
 ])
+
+const form = ref({
+  name: '',
+  email: '',
+  age: '',
+  activity: '',
+})
+
+const errors = ref({})
+
+const successMessage = ref('')
+
+const validateForm = () => {
+  errors.value = {}
+  successMessage.value = ''
+
+  if (!form.value.name.trim()) {
+    errors.value.name = 'Full name is required.'
+  }
+
+  if (!form.value.email.trim()) {
+    errors.value.email = 'Email is required.'
+  } else {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!emailPattern.test(form.value.email)) {
+      errors.value.email = 'Please enter a valid email address.'
+    }
+  }
+
+  if (!form.value.age) {
+    errors.value.age = 'Age is required.'
+  } else if (form.value.age < 16 || form.value.age > 100) {
+    errors.value.age = 'Age must be between 16 and 100.'
+  }
+
+  if (!form.value.activity) {
+    errors.value.activity = 'Please select an activity.'
+  }
+
+  if (Object.keys(errors.value).length === 0) {
+    successMessage.value = 'Thank you! Your registration has been submitted.'
+
+    form.value = {
+      name: '',
+      email: '',
+      age: '',
+      activity: '',
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -165,6 +217,89 @@ const events = ref([
               </a>
             </article>
           </div>
+        </div>
+      </section>
+      <section id="involved" class="involved-section">
+        <div class="form-container">
+          <h2>Get Involved</h2>
+
+          <p class="section-description">
+            Register your interest and take part in ReCircle community activities.
+          </p>
+
+          <form @submit.prevent="validateForm" novalidate>
+            <div class="form-group">
+              <label for="name">Full Name</label>
+
+              <input
+                id="name"
+                v-model="form.name"
+                type="text"
+                placeholder="Enter your full name"
+              />
+
+              <p v-if="errors.name" class="error-message">
+                {{ errors.name }}
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+
+              <input
+                id="email"
+                v-model="form.email"
+                type="email"
+                placeholder="Enter your email"
+              />
+
+              <p v-if="errors.email" class="error-message">
+                {{ errors.email }}
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="age">Age</label>
+
+              <input
+                id="age"
+                v-model.number="form.age"
+                type="number"
+                placeholder="Enter your age"
+              />
+
+              <p v-if="errors.age" class="error-message">
+                {{ errors.age }}
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="activity">Preferred Activity</label>
+
+              <select
+                id="activity"
+                v-model="form.activity"
+              >
+                <option value="">Select an activity</option>
+                <option value="clean-up">Community Clean-Up</option>
+                <option value="recycling">Recycling Workshop</option>
+                <option value="clothing-swap">Clothing Swap</option>
+                <option value="volunteering">General Volunteering</option>
+              </select>
+
+              <p v-if="errors.activity" class="error-message">
+                {{ errors.activity }}
+              </p>
+            </div>
+
+            <button type="submit" class="submit-button">
+              Register
+            </button>
+
+            <p v-if="successMessage" class="success-message">
+              {{ successMessage }}
+            </p>
+          </form>
         </div>
       </section>
       <section class="features">
@@ -356,6 +491,78 @@ footer {
 }
 
 .event-button:hover {
+  background-color: #256629;
+}
+
+.involved-section {
+  padding: 70px 8%;
+  background-color: #eef7ee;
+}
+
+.form-container {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.involved-section h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cccccc;
+  border-radius: 7px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: 2px solid #2e7d32;
+  border-color: #2e7d32;
+}
+
+.error-message {
+  margin-top: 6px;
+  color: #c62828;
+  font-size: 14px;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 7px;
+  background-color: #dff3df;
+  color: #1b5e20;
+  text-align: center;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 7px;
+  background-color: #2e7d32;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
   background-color: #256629;
 }
 
