@@ -32,8 +32,11 @@ const recyclingItems = ref([
 ])
 
 const filteredItems = computed(() => {
+  const search = searchTerm.value.toLowerCase()
+
   return recyclingItems.value.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.value.toLowerCase()),
+    item.name.toLowerCase().includes(search) ||
+    item.category.toLowerCase().includes(search)
   )
 })
 
