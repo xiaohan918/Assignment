@@ -662,4 +662,58 @@ footer {
   margin-top: 25px;
   font-weight: bold;
 }
+
+/* Small mobile devices */
+@media (max-width: 575px) {
+  .navbar {
+    padding: 15px 5%;
+  }
+
+  .hero {
+    padding: 40px 16px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .features,
+  .recycling-section,
+  .events-section,
+  .involved-section {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+/* Tablet devices */
+@media (min-width: 576px) and (max-width: 768px) {
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .recycling-grid,
+  .events-grid,
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Standard desktop */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .section-container {
+    max-width: 960px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .section-container {
+    max-width: 1200px;
+  }
+
+  .hero-content {
+    max-width: 900px;
+  }
+}
 </style>
